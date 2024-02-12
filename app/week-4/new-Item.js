@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 export default function NewItem() {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("produce");
 
   const handleSubmit = (e) => {
@@ -15,7 +15,7 @@ export default function NewItem() {
   
     // Reset the state variables to their initial values
     setName("");
-    setQuantity(0);
+    setQuantity(1);
     setCategory("produce");
   };
   
