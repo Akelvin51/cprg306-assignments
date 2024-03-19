@@ -3,14 +3,17 @@
 "use client"; // Indicate client-side execution in Next.js
 import React, { useState } from "react";
 import FetchMealIdeas from "./meal-ideas"; // Make sure the path matches your file structure
-import ItemList from "./item-list"; // Make sure the path matches your file structure
+import ItemList from "../../week-7/item-list"; // Make sure the path matches your file structure
 import NewItem from "./new-item"; // Make sure the path matches your file structure
 import itemsData from "./items.json"; // Make sure this path matches your actual JSON file location
+import { useUserAuth } from '../_utils/auth-context.js';
+import Link from 'next/link';
 
 export default function Page() {
   const [items, setItems] = useState(itemsData); // Initialize state with items from JSON
   const [selectedItemName, setSelectedItemName] = useState(""); // New state variable for the selected item
   const [showMealIdeas, setShowMealIdeas] = useState(false); // State variable to control rendering of meal ideas
+  const { user } = useUserAuth();
 
   // Event handler that adds a new item to the list
   const handleAddItem = (newItem) => {
@@ -59,6 +62,8 @@ export default function Page() {
 
   return (
     <main className="bg-Gumetal p-4">
+      {user?
+      <>
       <h1 className="text-xl uppercase text-center border font-serif text-cyan-700 mb-4">
         Shopping List
       </h1>
@@ -79,6 +84,19 @@ export default function Page() {
           </div>
         )}
       </div>
+      </>:
+        <>      
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <div className="text-center p-4 bg-white shadow-xl rounded-lg">
+            <h1 className="text-2xl font-semibold text-gray-800 mb-4">Please log in first.</h1>
+            <Link href="/week-8" className="text-lg text-blue-500 hover:text-blue-700">Go to Login
+           
+            </Link>
+          </div>
+        </div>
+        </>
+      }
+
     </main>
   );
 }
